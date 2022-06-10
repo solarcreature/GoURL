@@ -13,9 +13,9 @@ type URLRequest struct {
 }
 func CreateShortURL(c *gin.Context) {
 	var request URLRequest
-	err := c.ShouldBindJSON(&request) 
-	if err != nil {
-		c.JSON(http.StatusBadRequest,gin.H{"error":err.Error()})
+	
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		
 		return
 	}

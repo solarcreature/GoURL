@@ -22,3 +22,5 @@ func TestGenerator(t *testing.T) {
 	assert.Equal(t, shortURL_2, "VACXg1aB")
 	assert.Equal(t, shortURL_3, "YiqMMZ1c")
 }
+
+

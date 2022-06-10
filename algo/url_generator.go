@@ -27,7 +27,7 @@ func ToBase58(bytes []byte) string {
 }
 
 func GenerateURL(initialLink string, userID string) string {
-	hashBytes := ToSHA256(userID + initialLink)
+	hashBytes := ToSHA256(userID+ initialLink)
 	hashNumber := new(big.Int).SetBytes(hashBytes).Uint64()
 	resultString := ToBase58([]byte(fmt.Sprintf("%d",hashNumber)))
 	result := resultString[:8]

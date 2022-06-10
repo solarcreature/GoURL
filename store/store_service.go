@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/go-redis/redis"
 	"time"
+	
 )
 
 type StorageService struct {
@@ -12,6 +13,7 @@ type StorageService struct {
 
 var (
 	storeService = &StorageService{}
+	
 )
 
 const CacheDuration = 6 * time.Hour
