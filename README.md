@@ -1,2 +1,2 @@
 # GoURL
-A URL shortener written in Golang
+A fast URL shortener written in Go using Redis and Gin. 
