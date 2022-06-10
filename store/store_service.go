@@ -1,19 +1,17 @@
 package store
 
 import (
-	"context"
 	"fmt"
 	"github.com/go-redis/redis"
 	"time"
 )
 
 type StorageService struct {
-	redisClient *redis.redisClient
+	redisClient *redis.Client
 }
 
 var (
 	storeService = &StorageService{}
-	ctx = context.Background()
 )
 
 const CacheDuration = 6 * time.Hour
@@ -25,7 +23,7 @@ func InitializeStore() *StorageService {
 		DB:			0,
 	})
 
-	pong, err := redisClient.Ping(ctx).Result()
+	pong, err := redisClient.Ping().Result()
 
 	if err != nil {
 		panic(fmt.Sprintf("Error init Redis: %v",err))
@@ -38,7 +36,7 @@ func InitializeStore() *StorageService {
 }
 
 func StoreMap(shortURL string, originalURL string, userID string) {
-	err := storeService.redisClient.Set(ctx,shortURL,originalURL,CacheDuration).Err()
+	err := storeService.redisClient.Set(shortURL,originalURL,CacheDuration).Err()
 	if err != nil {
 		panic(fmt.Sprintf("Failed storing key url | Error: %v - shortURL: %s - originalURL: %s\n",err,shortURL,originalURL))
 
@@ -47,7 +45,7 @@ func StoreMap(shortURL string, originalURL string, userID string) {
 }
 
 func RetrieveOriginalURL(shortURL string) string {
-	result, err := storeService.redisClient.Get(ctx,shortURL).Result()
+	result, err := storeService.redisClient.Get(shortURL).Result()
 	if err != nil {
 		panic(fmt.Sprintf("Failed to retrieve the initial url | Error: %v - shortURL: %s\n",err,shortURL))
 	}
